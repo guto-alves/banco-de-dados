@@ -1,6 +1,6 @@
-CREATE DATABASE projects
+CREATE DATABASE projectsUsers
 GO
-USE projects
+USE projectsUsers
 
 CREATE TABLE projects (
 	id INT IDENTITY(10001, 1) PRIMARY KEY,
@@ -21,7 +21,7 @@ CREATE TABLE users (
 CREATE TABLE users_has_projects (
 	users_id INT NOT NULL,
 	projects_id INT NOT NULL,
-	PRIMARY KEY(users_id, projects_id),
+	PRIMARY KEY (users_id, projects_id),
 	FOREIGN KEY (users_id) REFERENCES users (id),
 	FOREIGN KEY (projects_id) REFERENCES projects (id)
 )
@@ -33,27 +33,31 @@ ALTER TABLE users
 ALTER COLUMN username VARCHAR(10)
 
 ALTER TABLE users
-ALTER COLUMN password VARCHAR(8)
-
-ALTER TABLE users
 ADD CONSTRAINT unique_username UNIQUE(username)
 
+ALTER TABLE users
+ALTER COLUMN password VARCHAR(8)
+
 INSERT INTO users (name, username, email)
-	VALUES('Maria', 'Rh_maria', 'maria@empresa.com'),
+VALUES
+	('Maria', 'Rh_maria', 'maria@empresa.com'),
 	('Ana', 'Rh_ana', 'ana@empresa.com'),
 	('Clara', 'Ti_clara', 'clara@empresa.com')
 
 INSERT INTO users 
-	VALUES('Paulo', 'Ti_paulo', '123@456', 'paulo@empresa.com'),
+VALUES
+	('Paulo', 'Ti_paulo', '123@456', 'paulo@empresa.com'),
 	('Aparecido', 'Rh_apareci', '55@!cido', 'aparecido@empresa.com')
 
 INSERT INTO projects 
-	VALUES('Re-folha', 'Refatoração das Folhas', '05/09/2014'),
+VALUES
+	('Re-folha', 'Refatoração das Folhas', '05/09/2014'),
 	('Manutenção PC''s', 'Manutençao PC''s', '06/09/2014'),
 	('Auditoria', null, '07/09/2014')
 
 INSERT INTO users_has_projects 
-	VALUES(1, 10001),
+VALUES
+	(1, 10001),
 	(5, 10001),
 	(3, 10003),
 	(4, 10002),
@@ -93,7 +97,7 @@ SELECT username, password
 FROM users
 WHERE id = 2
 
-SELECT name, budget, budget * 1.15
+SELECT name, budget, budget * 1.15 AS bonus_budget
 FROM projects
 
 SELECT id, name, email
